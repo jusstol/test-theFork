@@ -63,7 +63,7 @@ start the pipeline.
 
 4. Move your CSV file (bookings.csv) into ./data/in
 5. Go to Supervisor (http://localhost:9001) and click `RESTART ALL` to start all steps of the pipeline.
-6. They will all start after one minute. You can read log messages in the ./log directory that has been created
+6. They will all start after one minute. You can read log messages in the ./log directory that has been created. The insert_monthly_report job may fail once if compute_monthly_report is not finished, it should work fine on the next iteration (1 more minute later)
 7. Once all jobs are finished, you can take a look at the ./data/out folder to find the _monthly\_restaurants\_report.csv_ file
 8. Go back to Jupyter on the _1\_check\_database.ipnyb_ notebook
 9. Re run all cells. You should see 5 lines extracted from the the `monthly_restaurants_report` table to prove we can query the database.
@@ -87,7 +87,7 @@ src
 ├── main.py                 <- entrypoint
 ├── sql
 │   ├── __init__.py
-│   └── db.py               <- connection to "gensdeconfiance" database
+│   └── db.py               <- connection to "thefork" database
 └── utils                   <- package for all sorts of utilities
     ├── __init__.py
     └── fs.py               <- functions to interract with the file system
@@ -98,16 +98,16 @@ Everything related to the environment is variabilized and can be set in the _./e
 ## Unit tests
 To run all unit tests, the best is to create a virtual environment in which you can install all needed dependencies. Make sure you have `python3` on your machine.
 
-Create the virtual environment with the following command :
+In a new terminal window, create the virtual environment with the following command :
 
 ```bash
-make tests-env
+make test-env
 ```
 
 Run all tests with :
 
 ```bash
-make tests
+make test
 ```
 
 ## What or how to improve
@@ -124,7 +124,7 @@ To make this project even more production-ready, we could :
  * replace most of the Python + Supervisor logic by Apache Nifi for less code and more robustness
 
 ## How to clean
-To remove all created container, hit Ctrl+C in the terminal window where you started the docker-compose, and run the following command :
+To remove all created containers, hit Ctrl+C in the terminal window where you started the docker-compose, and run the following command :
 
 ```bash
 docker-compose down
@@ -135,3 +135,5 @@ Manually remove the project images :
 ```bash
 docker image rm test-thefork_python postgres continuumio/miniconda3
 ```
+
+Delete the project folder to remove everything else.

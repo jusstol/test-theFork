@@ -4,7 +4,7 @@ tree:
 build: tree
 	docker-compose up
 
-tests-env:
+test-env:
 	( \
 		python3 -m venv venv; \
 		source ./venv/bin/activate; \
@@ -12,7 +12,7 @@ tests-env:
 		deactivate; \
 	)
 
-tests:
+test:
 	( \
 		source ./venv/bin/activate; \
 		pytest -v; \
