@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  database:
+    image: postgres:latest
+    env_file: ./env.conf
+    ports:
+      - "5432:5432"
+    networks:
+      - thefork
+  python:
+    build: .
+    env_file: ./env.conf
+    depends_on:
+      - database
+    ports:
+      - "8888:8888"
+      - "9001:9001"
+    volumes:
+      - ./data:/dist/data
+      - ./notebooks:/dist/notebooks
+      - ./src:/dist/src
+      - ./supervisor:/dist/supervisor
+      - ./log:/log
+      - ./tests:/dist/tests
+    networks:
+      - thefork
+networks:
+  thefork:

@@ -1,0 +1,6 @@
+pandas==1.2.3
+psycopg2-binary==2.8.6
+pytest==6.2.2
+schedule==1.0.0
+supervisor==4.2.2
+SQLAlchemy==1.4.0
